@@ -154,5 +154,21 @@ export const me = async (req, res) => {
     }
 };
 
+// 유저 찾기
+export const userInfo = async (req, res) => {
+    const { account } = req.body;
+    if (!account) {
+        return res.status(400).json({ message: "ID를 입력하세요." });
+    }
 
+    try {
+        const existingUser = await User.findOne({ account });
+        if (existingUser) {
+            return res.status(409).json({ available: false, message: "이미 사용 중인 ID입니다." });
+        }
+        return res.status(200).json({ available: true, message: "사용 가능한 ID입니다." });
+    } catch (error) {
+        return res.status(500).json({ message: "서버 오류 발생", error: error.message });
+    }
+};
 
