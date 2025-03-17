@@ -18,6 +18,9 @@ router.post("/signup", authController.signupUser);
 // 로그인
 router.post("/login", authController.loginUser);
 
+// 로그인 후 유저 찾기
+router.get("/userinfo", authController.userInfo);
+
 // 로그인 유지 (토큰 인증)
 router.get("/me", authController.me);
 
