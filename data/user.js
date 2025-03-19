@@ -1,12 +1,18 @@
 import mongoose from "mongoose"; // ✅ mongoose 자체를 import
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
   name: { type: String, required: true },
   account: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  phone: { type: Number, unique: true, required: true },
+  phone: { type: String, unique: true, required: true },
   zip_code: { type: Number, required: true },
-});
+  },
+  {
+    versionKey:false,
+    timestamps:true
+  }
+);
 
 const User = mongoose.model("User", UserSchema);
 

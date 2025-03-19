@@ -1,14 +1,19 @@
 import mongoose from "../database.js";
 
-const StationSchema = new mongoose.Schema({
+const StationSchema = new mongoose.Schema(
+  {
   station_name: { type: String, required: true },
   account: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  tel: { type: Number, unique: true, required: true },
+  tel: { type: String, unique: true, required: true },
   station_key: { type: String, unique: true, required: true },
-  general_key: { type: String, unique: true, required: true },
-  token: { type: String, required: false },
-});
+  general_key: { type: String, unique: true, required: true }
+  },
+  {
+    versionKey:false,
+    timestamps:true
+  }
+);
 
 const Station = mongoose.model("Station", StationSchema);
 

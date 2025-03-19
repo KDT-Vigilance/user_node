@@ -126,7 +126,7 @@ export const loginUser = async (req, res) => {
         // ✅ JWT 토큰 생성 (secretKey 값이 undefined인지 확인)
         const token = jwt.sign({ id: user._id }, config.jwt.secretKey, { expiresIn: config.jwt.expiresInSec });
 
-        res.status(200).json({ token, message: "로그인 성공!" });
+        res.status(200).json({ token, userId: user._id.toString(), message: "로그인 성공!" });
     } catch (error) {
         console.error("🔥 로그인 중 서버 오류:", error);
         res.status(500).json({ message: "로그인 중 오류 발생", error: error.message });

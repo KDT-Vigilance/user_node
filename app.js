@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { config } from "./config.js";
 import connectDB from "./database.js";
+import apiRouter from "./router/api.js";
 import authRouter from "./router/auth.js";
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use(
 
 // 라우터
 app.use("/auth",authRouter);
+app.use("/api",apiRouter);
 
 // 백엔드 포트가져오기 
 const port = config.hosting_port.user_back || 8080;
