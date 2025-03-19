@@ -3,7 +3,12 @@ import mongoose from "../database.js";
 const PoliceHeadquartersSchema = new mongoose.Schema({
   station_key: { type: String, unique: true, required: true },
   general_key: { type: String, unique: true, required: true },
-});
+},
+{
+  versionKey:false,
+  timestamps:true
+}
+);
 
 const PoliceHeadquarters = mongoose.model("PoliceHeadquarters", PoliceHeadquartersSchema);
 

@@ -8,9 +8,14 @@ const ReportSchema = new mongoose.Schema({
   },
   video_url: { type: String, unique: true, required: true },
   cam_name: { type: String, required: true },
-  situation: { type: String, required: true },
   status: { type: Number, required: true },
-});
+  tel: { type: String, required: true }
+},
+{
+  versionKey:false,
+  timestamps:true
+}
+);
 
 const Report = mongoose.model("Report", ReportSchema);
 
