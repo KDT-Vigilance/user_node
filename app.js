@@ -6,15 +6,13 @@ import { config } from "./config.js";
 import connectDB from "./database.js";
 import apiRouter from "./router/api.js";
 import authRouter from "./router/auth.js";
+import reportRouter from "./router/report.js"; // 🚨 신고 라우터 추가
 
 dotenv.config();
 
 const app = express();
-
-// 미들웨어 설정
 app.use(express.json());
 
-// public 폴더를 정적 파일 제공 경로로 설정
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
@@ -26,21 +24,18 @@ app.use(
   })
 );
 
-// 라우터
-app.use("/auth",authRouter);
-app.use("/api",apiRouter);
+// 🔹 라우터 설정
+app.use("/auth", authRouter);
+app.use("/api", apiRouter);
+app.use("/report", reportRouter); // 🚨 신고 라우터 추가
 
-// 백엔드 포트가져오기 
 const port = config.hosting_port.user_back || 8080;
-
-// MongoDB 연결 -> DB연결 안되면 서버 실행 안됨
 connectDB()
   .then(() => {
-    app.listen(port, () =>
-      console.log(` 서버 실행 중: http://localhost:${port}`)
-    );
+    app.listen(port, () => console.log(` 서버 실행 중: http://localhost:${port}`));
   })
   .catch((err) => {
     console.error(" 서버 시작 실패:", err);
-    process.exit(1); // 서버 종료
+    process.exit(1);
   });
+ 

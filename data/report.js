@@ -1,4 +1,5 @@
-import mongoose from "../database.js";
+import mongoose from "mongoose"; // ✅ mongoose를 직접 불러옴
+import "../database.js"; // ✅ DB 연결 유지
 
 const ReportSchema = new mongoose.Schema({
   user_id: {
