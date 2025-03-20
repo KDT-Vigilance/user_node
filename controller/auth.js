@@ -69,9 +69,9 @@ export const verifyCode = async (req, res) => {
 // 회원가입
 export const signupUser = async (req, res) => {
     try {
-        const { name, account, password, phone, zip_code } = req.body;
+        const { account, password, phone, zip_code } = req.body;
 
-        if (!name || !account || !password || !phone || !zip_code) {
+        if (!account || !password || !phone || !zip_code) {
             return res.status(400).json({ message: "모든 필드를 입력하세요." });
         }
 
@@ -88,7 +88,6 @@ export const signupUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await User.create({
-            name,
             account,
             password: hashedPassword,
             phone,

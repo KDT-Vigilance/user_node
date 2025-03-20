@@ -43,4 +43,17 @@ export const config = {
     apiSecretKey: getEnvValue('API_SECRET'),
     hpNumber: getEnvValue('MY_NUMBER')
   },
+
+  aws: {
+    bucket_name: getEnvValue("AWS_BUCKET_NAME"),
+    bucket_region: getEnvValue("AWS_BUCKET_REGION"),
+    access_key: getEnvValue("AWS_ACCESS_KEY"),
+    secret_key: getEnvValue("AWS_SECRET_KEY"),
+    bucket_directory: getEnvValue("AWS_BUCKET_DIRECTORY"),
+  },
+
+  kakao: {
+    apiKey: getEnvValue("KAKAO_REST_API_KEY"),
+  },
+  
 }

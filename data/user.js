@@ -2,11 +2,10 @@ import mongoose from "mongoose"; // ✅ mongoose 자체를 import
 
 const UserSchema = new mongoose.Schema(
   {
-  name: { type: String, required: true },
   account: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   phone: { type: String, unique: true, required: true },
-  zip_code: { type: Number, required: true },
+  zip_code: { type: String, required: true },
   },
   {
     versionKey:false,
