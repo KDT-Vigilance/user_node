@@ -14,6 +14,13 @@ export const createReport = async (req, res) => {
   try {
     console.log("🔍 신고 생성 요청 수신:", { userId, camName, videoUrl });
 
+    // ✅ 중복 video_url 체크
+    const existingReport = await Report.findOne({ video_url: videoUrl });
+    if (existingReport) {
+      console.warn("⚠️ 이미 저장된 video_url입니다. 중복 저장 방지됨:", videoUrl);
+      return res.status(409).json({ message: "이미 등록된 video_url입니다." });
+    }
+
     // 🔍 유저 zip_code 조회
     const user = await User.findById(userId);
     if (!user) {
@@ -46,22 +53,19 @@ export const createReport = async (req, res) => {
       tel: policeTel,
     });
 
-    console.log('report 객체 생성 완료 값 ☆☆☆☆☆☆☆☆☆☆☆', report)
+    console.log("report 객체 생성 완료 값 ☆☆☆☆☆☆☆☆☆☆☆", report);
 
     // fetch 9090/report/send_report
-    // body - reportId  --> reportId는 객체 자체의 ._id 
     await fetch("http://localhost:9090/report/send_report", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ reportId: report._id }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log("✅ 신고 전송 완료:", data))
-        .catch((error) => console.error("❌ 신고 전송 실패:", error));
-  
-
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ reportId: report._id }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("✅ 신고 전송 완료:", data))
+      .catch((error) => console.error("❌ 신고 전송 실패:", error));
 
     res.status(201).json(report);
   } catch (error) {
